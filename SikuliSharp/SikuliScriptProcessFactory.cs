@@ -64,7 +64,17 @@ namespace SikuliSharp
 			if (String.IsNullOrEmpty(javaHome))
 				throw new Exception("Java path not found. Is it installed? If yes, set the JAVA_HOME environment vairable.");
 
-			var javaPath = Path.Combine(javaHome, "bin", "java.exe");
+			var javaPath = Path.Combine(javaHome, "bin");
+
+            // Use .exe only if not running on mono
+            if (Type.GetType("Mono.Runtime") != null)
+            {
+                javaPath = Path.Combine("java");
+            }
+            else
+            {
+                javaPath = Path.Combine("java.exe");
+            }
 
 			if (!File.Exists(javaPath))
 				throw new Exception(string.Format("Java executable not found in expected folder: {0}. If you have multiple Java installations, you may want to set the JAVA_HOME environment variable.", javaPath));
