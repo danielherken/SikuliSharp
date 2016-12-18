@@ -69,11 +69,11 @@ namespace SikuliSharp
             // Use .exe only if not running on mono
             if (Type.GetType("Mono.Runtime") != null)
             {
-                javaPath = Path.Combine("java");
+                javaPath = Path.Combine(javaPath, "java");
             }
             else
             {
-                javaPath = Path.Combine("java.exe");
+                javaPath = Path.Combine(javaPath, "java.exe");
             }
 
 			if (!File.Exists(javaPath))
